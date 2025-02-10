@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="styles/general.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/rock-paper-scissors.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="game-header">
+    <p class="header-text">Rock Paper Scissors Game</p>
+    <button class="reset-button js-reset-button">Reset</button>
+  </header>
+
+  <main class="game-container">
+    <div class="player-move-container">
+      <button class="player-move-button js-player-move-button"
+        data-move="Rock">
+        <img src="images/Rock-emoji.png" class="player-move-img">
+      </button>
+
+      <button class="player-move-button js-player-move-button"
+        data-move="Paper">
+        <img src="images/Paper-emoji.png" class="player-move-img">
+      </button>
+
+      <button class="player-move-button js-player-move-button"
+        data-move="Scissors">
+        <img src="images/Scissors-emoji.png" class="player-move-img">
+      </button>
+    </div>
+
+    <div class="match-info-container">
+      <div class="score-container">
+        <div class="score-board">
+          <div class="score-board-row">
+            <div class="result-wins">Wins:</div>
+            <div class="wins-count js-wins-count">0</div>
+          </div>
+
+          <div class="score-board-row">
+            <div class="result-losses">Losses:</div>
+            <div class="losses-count js-losses-count">0</div>
+          </div>
+
+          <div class="score-board-row">
+            <div class="result-ties">Ties:</div>
+            <div class="ties-count js-ties-count">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-moves-container">
+        <div class="display-player-move js-display-player-move">
+          <img src="images/player-icon.svg" class="player-move">
+        </div>
+
+        <div class="versus-img-container">
+          <img src="images/versus.svg" class="versus-img">
+        </div>
+
+        <div class="display-computer-move js-display-computer-move">
+          <img src="images/computer-icon.svg" class="player-move">
+        </div>
+      </div>  
+
+      <div class="result-container js-result-container">
+        <span class="result-text js-result-text">Play</span>
+      </div>
+    </div>
+
+    <div class="computer-move-container">
+      <button class="computer-move-button js-computer-rock-button">
+        <img src="images/Rock-emoji.png" class="computer-move-img">
+      </button>
+
+      <button class="computer-move-button js-computer-paper-button">
+        <img src="images/Paper-emoji.png" class="computer-move-img">
+      </button>
+
+      <button class="computer-move-button js-computer-scissors-button">
+        <img src="images/Scissors-emoji.png" class="computer-move-img">
+      </button>
+    </div>
+  </main>
+
+  <div class="profile-container">
+    <div class="player-icon-container">
+      <span class="player-text">You</span>
+      <img src="images/player-icon.svg" class="player-icon">
+    </div>
+
+    <div class="winning-score-container">
+      First To 
+      <div class="winning-score js-winning-score">
+        <input type="number" min="1" value="1" class="winning-score-input js-winning-score-input">
+        <button class="save-button js-save-button">Save</button>
+      </div> 
+      Wins
+    </div>
+
+    <div class="computer-icon-container">
+      <img src="images/computer-icon.svg" class="computer-icon">
+      <span class="player-text">Computer</span>
+      <div class="computer-statement js-computer-statement"></div>
+    </div>
+  </div>
+  
+  <script src="scripts/rock-paper-scissors.js" type="module"></script>
+</body>
+</html>
