@@ -1,0 +1,32 @@
+.game-header {
+  width: 1350px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(252, 164, 0);
+  margin: auto;
+  position: relative;
+}
+
+.header-text {
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+}
+
+.reset-button {
+  position: absolute;
+  right: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: white;
+  background-color: rgb(255, 0, 0);
+  border: none;
+  border-radius: 0.3rem;
+  font-weight: bold;
+}
+
+.reset-button:hover {
+  cursor: pointer;
+}
