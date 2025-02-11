@@ -96,11 +96,11 @@ function checkWonOrLose() {
       location.replace('./rock-paper-scissors.html');
       gameFinish = 0;
       localStorage.setItem('gameFinish', JSON.stringify(gameFinish));
+      localStorage.removeItem('winningScore');
     });
     
     if(!gameFinish) {
       gameFinish = 1;
-      localStorage.removeItem('winningScore');
       localStorage.setItem('gameFinish', JSON.stringify(gameFinish));
     }
   }
