@@ -1,29 +1,34 @@
 import { computerComment } from "./computer-comments.js";
 
 export let winningScore = JSON.parse(localStorage.getItem('winningScore'));
+
 if(!winningScore) {
   document.querySelector('.js-save-button').addEventListener('click', () => {
     winningScore = Number(document.querySelector('.js-winning-score-input').value);
-    if(winningScore === 0) {
-      winningScore = 5;
+
+    if(winningScore <= 0) {
+      pickDefaultWinningScore();
     }
+
     localStorage.setItem('winningScore', JSON.stringify(winningScore));
-    document.querySelector('.js-winning-score').innerHTML = winningScore;
+    displayWinningScore();
   });
 
   document.querySelector('.js-winning-score-input').addEventListener('keydown', (event) => {
     if(event.key === 'Enter') {
       winningScore = Number(document.querySelector('.js-winning-score-input').value);
-      if(winningScore === 0) {
-        winningScore = 5;
+
+      if(winningScore <= 0) {
+        pickDefaultWinningScore();
       }
+
       localStorage.setItem('winningScore', JSON.stringify(winningScore));
-      document.querySelector('.js-winning-score').innerHTML = winningScore;
+      displayWinningScore();
       }
   });
 }
 else {
-  document.querySelector('.js-winning-score').innerHTML = winningScore;
+  displayWinningScore();
 }
 
 let score = JSON.parse(localStorage.getItem('score')) || {
@@ -48,7 +53,7 @@ if(!gameFinish) {
   document.querySelectorAll('.js-player-move-button').forEach((button) => {
     button.addEventListener('click',() => {
       if(!winningScore) {
-        winningScore = 5;
+        pickDefaultWinningScore();
         localStorage.setItem('winningScore', JSON.stringify(winningScore));
         document.querySelector('.js-winning-score').innerHTML = winningScore;
       }
@@ -57,6 +62,16 @@ if(!gameFinish) {
   });
 }
 
+function displayWinningScore() {
+  document.querySelector('.js-winning-score').innerText = winningScore;
+}
+
+// picks default winning score for the game
+function pickDefaultWinningScore() {
+  winningScore = 5;
+}
+
+// removes score from local storage
 function resetScore() {
   localStorage.removeItem('score');
 }
@@ -75,11 +90,12 @@ function pickComputerMove() {
 };
 
 function updateScore() {
-  document.querySelector('.js-wins-count').innerHTML = score.wins;
-  document.querySelector('.js-losses-count').innerHTML = score.losses;
-  document.querySelector('.js-ties-count').innerHTML = score.ties;
+  document.querySelector('.js-wins-count').innerText = score.wins;
+  document.querySelector('.js-losses-count').innerText = score.losses;
+  document.querySelector('.js-ties-count').innerText = score.ties;
 }
 
+// checks if the game is finished or not
 function checkWonOrLose() {
   if(score.wins === winningScore || score.losses === winningScore) {
     const winner = (score.wins === winningScore) ? ("player") : ("computer");
@@ -106,7 +122,20 @@ function checkWonOrLose() {
   }
 }
 
-function playGame(playerMove, computerMove) {
+// displays clicking effect on the computer choice
+function clickComputerChoice(computerMove) {
+  const computerMoveButton = document.querySelector(`.js-computer-${computerMove.toLowerCase()}-button`);
+    computerMoveButton.addEventListener('click', () => {
+      computerMoveButton.style.backgroundColor = "rgb(94, 94, 94)";
+      setTimeout(() => {
+        computerMoveButton.style.backgroundColor = "black";
+      }, 100);
+    });
+
+    computerMoveButton.click();
+}
+
+function getResult(playerMove, computerMove) {
   let result = '';
   if(playerMove == computerMove) {
     result = 'Tie';
@@ -136,11 +165,32 @@ function playGame(playerMove, computerMove) {
     }
   }
 
-  if(result === 'Tie') score.ties++;
-  else if(result === 'You Win') score.wins++;
-  else if(result === 'You Lose') score.losses++;
+  return result;
+}
+
+function displayResult(result) {
+  const textElem = document.querySelector('.js-result-text');
+  if(result === 'You Win') {
+    textElem.style.color = 'rgb(90, 255, 90)';
+  }
+  else if(result === 'You Lose') {
+    textElem.style.color = 'rgb(255, 90, 90)';
+  }
+  else if(result === 'Tie') {
+    textElem.style.color = 'rgb(255, 255, 255)';
+  }
+  textElem.innerText = result;
+}
+
+function playGame(playerMove, computerMove) {
+  let result = getResult(playerMove, computerMove);
 
   if(!gameFinish) {
+
+    if(result === 'Tie') score.ties++;
+    else if(result === 'You Win') score.wins++;
+    else if(result === 'You Lose') score.losses++;
+
     localStorage.setItem('score', JSON.stringify(score));
 
     document.querySelector('.js-display-player-move').innerHTML = `
@@ -151,28 +201,20 @@ function playGame(playerMove, computerMove) {
       <img src="images/${computerMove}-emoji.png" class="player-move">
     `;
 
-    document.querySelector('.js-result-text').innerHTML = result;
+    displayResult(result);
     
-    const computerMoveButton = document.querySelector(`.js-computer-${computerMove.toLowerCase()}-button`);
-    computerMoveButton.addEventListener('click', () => {
-      computerMoveButton.style.backgroundColor = "rgb(94, 94, 94)";
-      setTimeout(() => {
-        computerMoveButton.style.backgroundColor = "black";
-      }, 100);
-    });
-
-    computerMoveButton.click();
+    clickComputerChoice(computerMove);
 
     const computerStatement = computerComment(score);
     if(computerStatement !== '') {
       document.querySelector('.js-computer-statement').style.display = "block";
-      document.querySelector('.js-computer-statement').innerHTML = computerStatement;
+      document.querySelector('.js-computer-statement').innerText = computerStatement;
     }
     else {
       document.querySelector('.js-computer-statement').style.display = "none";
     }
+
     updateScore();
     checkWonOrLose();
   }
 };
-
