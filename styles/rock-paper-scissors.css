@@ -29,13 +29,11 @@
   cursor: pointer;
 }
 
-.player-move-button:hover,
-.computer-move-button:hover {
+.player-move-button:hover {
   background-color: rgb(70, 70, 70);
 }
 
-.player-move-button:active,
-.computer-move-button:active {
+.player-move-button:active{
   background-color: rgb(94, 94, 94);
 }
 
@@ -172,6 +170,7 @@
   padding: 0.5rem 1rem;
   background-color: rgb(33, 212, 33);
   color: white;
+  font-weight: bold;
   border: none;
   border-radius: 0.3rem;
 }
