@@ -1,8 +1,26 @@
 import { winningScore } from "./rock-paper-scissors.js";
 
-const winningStatements = ["I have the lead", "I am winning", "I will win", "I can smell victory"];
-const lossingStatements = ["You are good at this game", "I need to make a comeback", "Don't be cocky because you got the lead", "I will overtake you soon"];
-const tiedStatements = ["Scores are level", "Equal Scores"];
+const winningStatements = [
+  "I have the lead", 
+  "I am winning", 
+  "I will win", 
+  "I can smell victory",
+  "I am sorry, but I am good at this game"
+];
+
+const lossingStatements = [
+  "You are good at this game", 
+  "I need to make a comeback", 
+  "Don't be cocky because you got the lead", 
+  "I will overtake you soon",
+  "Enjoy the lead as it will not last for long"
+];
+
+const tiedStatements = [
+  "Scores are leveled", 
+  "Equal Scores"
+];
+
 const lostStatement = "Well played, wanna play again?";
 const winStatement = "That way easy, want to try your luck again?";
 
