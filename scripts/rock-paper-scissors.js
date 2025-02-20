@@ -43,7 +43,7 @@ document.querySelector('.js-reset-button').addEventListener('click', () => {
   localStorage.removeItem('score');
   localStorage.removeItem('gameFinish');
   localStorage.removeItem('winningScore');
-  location.replace('./rock-paper-scissors.html');
+  location.replace('./index.html');
 });
 
 updateScore();
@@ -109,7 +109,7 @@ function checkWonOrLose() {
     `;
     document.querySelector('.js-play-again-button').addEventListener('click', () => {
       resetScore();
-      location.replace('./rock-paper-scissors.html');
+      location.replace('./index.html');
       gameFinish = 0;
       localStorage.setItem('gameFinish', JSON.stringify(gameFinish));
       localStorage.removeItem('winningScore');
