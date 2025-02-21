@@ -2,6 +2,14 @@ import { computerComment } from "./computer-comments.js";
 
 export let winningScore = JSON.parse(localStorage.getItem('winningScore'));
 
+let score = JSON.parse(localStorage.getItem('score')) || {
+  wins: 0,
+  losses: 0,
+  ties: 0
+};
+
+let gameFinish = JSON.parse(localStorage.getItem('gameFinish')) || 0;
+
 if(!winningScore) {
   document.querySelector('.js-save-button').addEventListener('click', () => {
     winningScore = Number(document.querySelector('.js-winning-score-input').value);
@@ -29,25 +37,9 @@ if(!winningScore) {
 }
 else {
   displayWinningScore();
+  updateScore();
+  checkWonOrLose();
 }
-
-let score = JSON.parse(localStorage.getItem('score')) || {
-  wins: 0,
-  losses: 0,
-  ties: 0
-};
-
-let gameFinish = JSON.parse(localStorage.getItem('gameFinish')) || 0;
-
-document.querySelector('.js-reset-button').addEventListener('click', () => {
-  localStorage.removeItem('score');
-  localStorage.removeItem('gameFinish');
-  localStorage.removeItem('winningScore');
-  location.replace('./index.html');
-});
-
-updateScore();
-checkWonOrLose();
 
 if(!gameFinish) {
   document.querySelectorAll('.js-player-move-button').forEach((button) => {
@@ -61,6 +53,13 @@ if(!gameFinish) {
     });
   });
 }
+
+document.querySelector('.js-reset-button').addEventListener('click', () => {
+  localStorage.removeItem('score');
+  localStorage.removeItem('gameFinish');
+  localStorage.removeItem('winningScore');
+  location.replace('./index.html');
+});
 
 function displayWinningScore() {
   document.querySelector('.js-winning-score').innerText = winningScore;
